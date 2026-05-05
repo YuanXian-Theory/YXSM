@@ -18,3 +18,12 @@ lake build
 # 4. Run examples (mass spectrum)
 lake exe cache get   # if needed
 lean --run lean/YXSM/Masses.lean
+
+
+Project Structure
+•  lean/YXTT/ — Core Type Theory, T⁶⁴ topology, TCSC axiom, Spectral theory
+•  lean/YXSM/ — Computable Standard Model (gauge breaking + particle masses)
+Key Achievements
+•  TCSC_implies_real_part_zero : Machine-checked proof
+•  Computable particle mass spectrum from first principles
+See papers (EN/CN version in /docs or attachments) for theoretical details.
