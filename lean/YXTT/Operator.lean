@@ -1,19 +1,20 @@
 import YXTT.T64
-import Mathlib.Analysis.InnerProductSpace.Basic
 import Mathlib.Analysis.InnerProductSpace.PiL2
+import Mathlib.Analysis.InnerProductSpace.Basic
 
-/-- YuanXian-Dirac Operator (simplified model). -/
+/-- YuanXian-Dirac self-referential operator -/
 structure YD_Operator where
-  /-- Domain function (wavefunction space). -/
-  domain : T64 → ℂ
-  /-- Laplacian term. -/
   laplacian : T64 → ℂ → ℂ
-  /-- Potential term. -/
   potential : T64 → ℝ
-  /-- Mind-field (self-referential) term, typically imaginary. -/
   mindfield : T64 → ℂ
 
-/-- Eigenvalue predicate: λ is an eigenvalue if there exists a non-zero eigenfunction. -/
+/-- Simplified default operator for testing -/
+def defaultOperator : YD_Operator where
+  laplacian := fun _ z => -z  -- negative Laplacian on torus
+  potential := fun _ => 0
+  mindfield := fun _ => Complex.I
+
+/-- Eigenvalue definition -/
 def hasEigenvalue (D : YD_Operator) (λ : ℂ) : Prop :=
-  ∃ ψ : T64 → ℂ, ψ ≠ 0 ∧ ∀ x : T64,
-    D.laplacian x (ψ x) + D.potential x * ψ x + D.mindfield x * ψ x = λ * ψ x
+  ∃ (ψ : T64 → ℂ), ψ ≠ 0 ∧ ∀ x,
+    D.laplacian x (ψ x) + D.potential x • ψ x + D.mindfield x • ψ x = λ • ψ x
